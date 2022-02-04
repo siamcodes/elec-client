@@ -1,0 +1,15 @@
+.slider img, 
+.card-image {
+    max-height: 520px;
+    object-fit: cover; 
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+
+.content img{
+    max-width: 100%;
+    max-height: 720px; 
+}
