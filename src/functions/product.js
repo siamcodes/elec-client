@@ -66,3 +66,14 @@ export const saveContent = async (slug, content, authtoken) =>
       },
     }
   );
+
+  export const saveDetail = async (slug, detail, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/product/saveDetail`,
+    { slug, detail },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );

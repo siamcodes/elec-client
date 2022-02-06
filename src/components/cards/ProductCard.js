@@ -64,7 +64,7 @@ const ProductCard = ({ product }) => {
                     <Link to={`/product/${slug}`}>
                         <img
                             src={images && images.length ? images[0].url : NoImg}
-                            style={{ height: "200px", objectFit: "cover" }}
+                            style={{ maxWidth: "220px", objectFit: "cover" }}
                             className="p-1"
                         />
                     </Link>

@@ -7,7 +7,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import NoImg from "../../images/noimg.jpg";
 import ProductListItems from "./ProductListItems";
-//import MiniBestSellers from "../home/MiniBestSellers";
+import MiniBestSellers from "../home/MiniBestSellers";
 import StarRating from "react-star-ratings";
 import RatingModal from "../modal/RatingModal";
 import { showAverage } from "../../functions/rating";
@@ -28,7 +28,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
     const dispatch = useDispatch();
     // router
     let history = useHistory();
-    const { title, description, images, _id, content } = product;
+    const { title, description, images, _id, content, detail } = product;
 
     const handleAddToCart = () => {
         // create cart array
@@ -73,67 +73,74 @@ const SingleProduct = ({ product, onStarClick, star }) => {
     };
 
     return (
-        <>
-            <div className="col-md-7">
-                {images && images.length ? (
-                    <Carousel showArrows={true} autoPlay infiniteLoop>
-                        {images && images.map((i) => <img src={i.url} key={i.public_id} />)}
-                    </Carousel>
-                ) : (
-                    <Card cover={<img src={NoImg} className="mb-2 card-image" />}></Card>
-                )}
-                <Tabs type="card">
-                    <TabPane tab="Description" key="1">
-                        {description && description}
-                        <br />
-                        {content && content.length ? (<div className="content"> {renderHTML(content)} </div>) : (<div></div>)}
-                    </TabPane>
-                    <TabPane tab="More" key="2">
-                        {content && content.length ? (<div className="content"> {renderHTML(content)} </div>) : (<div></div>)}
-                    </TabPane>
-                </Tabs>
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-sm-7">
+                    {images && images.length ? (
+                        <Carousel showArrows={true} autoPlay infiniteLoop>
+                            {images && images.map((i) => <img src={i.url} key={i.public_id} />)}
+                        </Carousel>
+                    ) : (
+                        <Card cover={<img src={NoImg} className="mb-2 card-image" />}></Card>
+                    )}
+                </div>
+
+                <div className="col-sm-5">
+                    <h5 className="bg-secondary text-white p-3" style={{ borderRadius: "10px" }}>{title}</h5>
+
+                    {product && product.ratings && product.ratings.length > 0 ? (
+                        showAverage(product)
+                    ) : (
+                        <div className="text-center pt-1 pb-3">No rating yet</div>
+                    )}
+
+                    <Card
+                        actions={[
+                            <Tooltip title={tooltip}>
+                                <a onClick={handleAddToCart}>
+                                    <ShoppingCartOutlined className="text-danger" /> <br /> Add to
+                                    Cart
+                                </a>
+                            </Tooltip>,
+                            <a onClick={handleAddToWishlist}>
+                                <HeartOutlined className="text-info" /> <br /> Add to Wishlist
+                            </a>,
+                            <RatingModal>
+                                <StarRating
+                                    name={_id}
+                                    numberOfStars={5}
+                                    rating={star}
+                                    changeRating={onStarClick}
+                                    isSelectable={true}
+                                    starRatedColor="red"
+                                />
+                            </RatingModal>,
+                        ]}
+                    >
+                        {/*  <Meta description={description} /> */}
+                        <ProductListItems product={product} />
+                    </Card>
+                </div>
             </div>
-
-            <div className="col-md-5">
-                <h5 className="bg-secondary text-white p-3" style={{ borderRadius: "10px" }}>{title}</h5>
-
-                {product && product.ratings && product.ratings.length > 0 ? (
-                    showAverage(product)
-                ) : (
-                    <div className="text-center pt-1 pb-3">No rating yet</div>
-                )}
-
-                <Card
-                    actions={[
-                        <Tooltip title={tooltip}>
-                            <a onClick={handleAddToCart}>
-                                <ShoppingCartOutlined className="text-danger" /> <br /> Add to
-                                Cart
-                            </a>
-                        </Tooltip>,
-                        <a onClick={handleAddToWishlist}>
-                            <HeartOutlined className="text-info" /> <br /> Add to Wishlist
-                        </a>,
-                        <RatingModal>
-                            <StarRating
-                                name={_id}
-                                numberOfStars={5}
-                                rating={star}
-                                changeRating={onStarClick}
-                                isSelectable={true}
-                                starRatedColor="red"
-                            />
-                        </RatingModal>,
-                    ]}
-                >
-                    {/*  <Meta description={description} /> */}
-                    <ProductListItems product={product} />
-                </Card>
-                <br />
-                {/* <h4 className="text-center p-3 mt-2 mb-2 display-4 jumbotron">Best Sellers</h4>
-                <MiniBestSellers /> */}
+            <div className="row">
+                <div className="col-md-8">
+                    <Tabs type="card">
+                        <TabPane tab="Description" key="1">
+                            <b style={{ color: 'blue' }}>{description && description}</b>
+                            <br />
+                            {content && content.length ? (<div className="content"> {renderHTML(content)} </div>) : (<div></div>)}
+                        </TabPane>
+                        <TabPane tab="More" key="2">
+                            {detail && detail.length ? (<div className="content"> {renderHTML(detail)} </div>) : (<div></div>)}
+                        </TabPane>
+                    </Tabs>
+                </div>
+                <div className="col-md-4">
+                    <h4 className="text-center p-3 mt-2 mb-2 display-4 jumbotron">Best Sellers</h4>
+                    <MiniBestSellers />
+                </div>
             </div>
-        </>
+        </div>
     );
 };
 

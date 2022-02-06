@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import AdminNav from "../../../components/nav/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { getProduct, updateProduct, saveContent } from "../../../functions/product";
+import { getProduct, updateProduct, saveContent, saveDetail } from "../../../functions/product";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import { getBrands, getBrandGenerations } from "../../../functions/brand";
 import FileUpload from "../../../components/forms/FileUpload";
@@ -23,15 +24,16 @@ const initialState = {
     quantity: "",
     images: [],
     colors: ["Black", "Brown", "Silver", "White", "Blue", "Red", "Green"],
-    brands: ["Espressif", "Atmel", "Phillips", "Microchip", "Analog Device", "STMicroelectronics", "Parallax", "Cypress", "Texas Intruments", "Motorola", "Zilog", "Rabbit Semiconductor", "Renesas",
-        "Sumsung", "Panasonic", "Sony", "Acer", "Apple", "Aston", "Dell", "Fujifilm", "GoPro", "HP", "JBL", "Lenovo", "LG", "Microsoft", "Sandisk", "WD", "Zotac", "No Brand",],
+    brands: ["No Brand", "Espressif", "Atmel", "Phillips", "Microchip", "Analog Device", "STMicroelectronics", "Parallax", "Cypress", "Texas Intruments", "Motorola", "Zilog", "Rabbit Semiconductor", "Renesas",
+        "Sumsung", "Panasonic", "Sony", "Acer", "Apple", "Aston", "Dell", "Fujifilm", "GoPro", "HP", "JBL", "Lenovo", "LG", "Microsoft", "Sandisk", "WD", "Zotac"],
     brand: "",
     color: "",
     //generations: []
-
 };
 
 const ProductUpdate = ({ match, history }) => {
+    const [loading, setLoading] = useState(false);
+    const { user } = useSelector((state) => ({ ...state }));
     // state
     const [values, setValues] = useState(initialState);
     const [categories, setCategories] = useState([]);
@@ -43,8 +45,10 @@ const ProductUpdate = ({ match, history }) => {
     const [arrayOfGenerations, setArrayOfGenerations] = useState([]);   //
     const [selectedBrand, setSelectedBrand] = useState("");             //
 
-    const [loading, setLoading] = useState(false);
-    const { user } = useSelector((state) => ({ ...state }));
+
+
+
+
     // router
     const { slug } = match.params;
 
@@ -70,6 +74,14 @@ const ProductUpdate = ({ match, history }) => {
             });
             console.log("ARR", arr);
             setArrayOfSubs((prev) => arr); // required for ant design select to work
+
+            if (p.data.content != null) {
+                setContent(p.data.content);  //กำหนดค่าให้ content
+            }
+
+            if (p.data.detail != null) {
+                setDetail(p.data.detail);  //กำหนดค่าให้ detail
+            }
         });
     };
 
@@ -100,6 +112,8 @@ const ProductUpdate = ({ match, history }) => {
                 setLoading(false);
                 toast.success(`"${res.data.title}" is updated`);
                 history.push("/admin/products");
+                localStorage.removeItem("content");
+                localStorage.removeItem("detail");
             })
             .catch((err) => {
                 console.log(err);
@@ -136,7 +150,6 @@ const ProductUpdate = ({ match, history }) => {
         setArrayOfSubs([]);
     };
 
-
     /*    
         const handleBrandChange = (e) => {
             e.preventDefault();
@@ -167,7 +180,6 @@ const ProductUpdate = ({ match, history }) => {
         if (typeof window === 'undefined') {
             return false;
         }
-
         if (localStorage.getItem('content')) {
             return JSON.parse(localStorage.getItem('content'));
         } else {
@@ -177,20 +189,53 @@ const ProductUpdate = ({ match, history }) => {
     const [content, setContent] = useState(contentFromLS());
 
     const saveContentToDB = () => {
-        console.log(slug, content);
+        //console.log(slug, content);
         saveContent(slug, content).then((res) => {
             if (res.data.ok) {
+                // setLoading(false);
                 setContent(true);
                 toast.success("content saved");
+                history.push(`/admin/product/${slug}`);
+                //localStorage.removeItem("content");
             }
         });
     };
-
-    const handleContent = e => {
-        console.log(e);
+    const handleContent = (e) => {
+        //console.log(e);
         setContent(e);
         if (typeof window !== 'undefined') {
             localStorage.setItem('content', JSON.stringify(e));
+        }
+    };
+
+    const detailFromLS = () => {
+        if (typeof window === 'undefined') {
+            return false;
+        }
+        if (localStorage.getItem('detail')) {
+            return JSON.parse(localStorage.getItem('detail'));
+        } else {
+            return false;
+        }
+    };
+    const [detail, setDetail] = useState(detailFromLS());
+
+    const saveDetailToDB = () => {
+        //console.log(slug, detail);
+        saveDetail(slug, detail).then((res) => {
+            if (res.data.ok) {
+                //  setLoading(false);
+                setDetail(true);
+                toast.success("detail saved");
+                history.push(`/admin/product/${slug}`);
+                //localStorage.removeItem("detail");
+            }
+        });
+    };
+    const handleDetail = (e) => {
+        setDetail(e);
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('detail', JSON.stringify(e));
         }
     };
 
@@ -215,6 +260,7 @@ const ProductUpdate = ({ match, history }) => {
                             setValues={setValues}
                             setLoading={setLoading}
                         />
+
                     </div>
                     <br />
                     <ProductUpdateForm
@@ -229,25 +275,33 @@ const ProductUpdate = ({ match, history }) => {
                         setArrayOfSubs={setArrayOfSubs}
                         selectedCategory={selectedCategory}
 
-                        /*   
+                    /*   
                         handleBrandChange={handleBrandChange}
                         brands={brands}
                         generationOptions={generationOptions}
                         arrayOfGenerations={arrayOfGenerations}
                         setArrayOfGenerations={setArrayOfGenerations}
                         selectedBrand={selectedBrand}  
-                        */
+                    */
                     />
 
-                    <div>
+                    <div className="pt-4">
                         <ReactQuill theme="snow" value={content} onChange={handleContent} />
                         <Button className="mt-2" onClick={saveContentToDB} type="primary" ghost>
-                            Save รายละเอียด
+                            บันทึก Description
                         </Button>
                     </div>
 
-                    <hr />
+                    <div className="pt-4">
+                        <ReactQuill theme="snow" value={detail} onChange={handleDetail} />
+                        <Button className="mt-2" onClick={saveDetailToDB} type="primary" ghost>
+                            บันทึก More
+                        </Button>
+                    </div>
 
+                    <Link to={`/admin/product-content/${slug}`} className="btn btn-primary"> เพิ่ม Description </Link>
+                    <Link to={`/admin/product-detail/${slug}`} className="btn btn-primary">เพิ่ม More</Link>
+                    <br />
                 </div>
             </div>
         </div>

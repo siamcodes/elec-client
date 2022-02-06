@@ -35,11 +35,21 @@ export const saveUserAddress = async (authtoken, address) =>
       },
     }
   );
-  
+
 
 export const getUserAddress = async (authtoken) =>
   await axios.get(
     `${process.env.REACT_APP_API}/user/my-address`,
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+
+export const getProfile = async (authtoken) =>
+  await axios.get(
+    `${process.env.REACT_APP_API}/user/profile`,
     {
       headers: {
         authtoken,
@@ -115,3 +125,16 @@ export const createCashOrderForUser = async (authtoken, COD, couponTrueOrFalse) 
       },
     }
   );
+
+
+  export const saveContact = async (title, description, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/user/contact`,
+    {  title, description },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+  

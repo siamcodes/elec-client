@@ -53,28 +53,40 @@ import SubList from "../components/sub/SubList";
 
 const Home = () => {
     return (
-        <>
+        <div>
             <div className="jumbotron text-danger h1 font-weight-bold text-center">
-                <Jumbotron text={["Elec.App", "Latest Products", "New Arrivals", "Best Sellers"]} />
+                <Jumbotron text={[
+                    "จำหน่ายอุปกรณ์อิเล็กทรอนิกส์", 
+                    "ไมโครคอนโทรลเลอร์ / สมองกลฝังตัว / Sensor",
+                    "Internet of Things / Arduino / ESP32 / ESP8266",
+                    "สินค้าโกดังในไทย ส่งถึงลูกค้าภายใน 1-3 วัน",
+                    "Latest Products", 
+                    "New Arrivals", 
+                    "Best Sellers"
+                    ]} />
             </div>
-            <a name="new-arrivals" />
-            <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">New Arrivals</h4>
-            <NewArrivals />
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-3">
+                        <a name="categories" />
+                        <h5 className="text-center p-1 mt-1 mb-2 display-4 jumbotron">Categories</h5>
+                        <CategoryList />
 
-            <a name="best-sellers" />
-            <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">Best Sellers</h4>
-            <BestSellers />
+                        <h4 className="text-center p-1 mt-1 mb-2 display-4 jumbotron">Sub Categories</h4>
+                        <SubList />
+                    </div>
+                    <div className="col-md-9">
+                        <a name="new-arrivals" />
+                        <h4 className="text-center p-1 mt-1 mb-1 display-3 jumbotron">New Arrivals</h4>
+                        <NewArrivals />
 
-            <a name="categories" />
-            <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">Categories</h4>
-            <CategoryList />
-
-            <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">Sub Categories</h4>
-            <SubList />
-
-            <br />
-
-        </>
+                        <a name="best-sellers" />
+                        <h4 className="text-center p-1 mt-1 mb-1 display-3 jumbotron">Best Sellers</h4>
+                        <BestSellers />
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 

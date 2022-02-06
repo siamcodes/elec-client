@@ -33,9 +33,7 @@ const ProductCreateForm = ({
     color,
     brand,
     generations,
-
   } = values;
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -52,38 +50,12 @@ const ProductCreateForm = ({
             />
           </div>
         </div>
-        <div className="col-3">
-          <div className="form-group">
-            <label>Color</label>
-            <select name="color" className="form-control" onChange={handleChange}>
-              <option>Please select</option>
-              {colors.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="col-3">
-          <div className="form-group">
-            <label>Brand {brands.length}</label>
-            <select name="brand" className="form-control" onChange={handleChange}>
-              <option>Please select</option>
-              {brands.map((b) => (
-                <option key={b} value={b}>
-                  {b}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
       </div>
 
       <div className="row">
         <div className="col">
           <div className="form-group">
-            <label>Category {categories.length}</label>
+            <label>Category({categories.length})</label>
             <select
               name="category"
               className="form-control"
@@ -101,7 +73,7 @@ const ProductCreateForm = ({
         </div>
         {showSub && (
           <div className="col">
-            <label>Sub Categories {subOptions.length}</label>
+            <label>Sub Categories({subOptions.length})</label>
             <Select
               mode="multiple"
               style={{ width: "100%" }}
@@ -147,7 +119,34 @@ const ProductCreateForm = ({
           </div>
         </div>
 
-        <div className="col-3">
+        <div className="col-2">
+          <div className="form-group">
+            <label>Color</label>
+            <select name="color" className="form-control" onChange={handleChange}>
+              <option>Please select</option>
+              {colors.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="col-2">
+          <div className="form-group">
+            <label>Brand({brands.length})</label>
+            <select name="brand" className="form-control" onChange={handleChange}>
+              <option>Please select</option>
+              {brands.map((b) => (
+                <option key={b} value={b}>
+                  {b}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="col-2">
           <div className="form-group">
             <label>Shipping</label>
             <select
@@ -163,7 +162,7 @@ const ProductCreateForm = ({
         </div>
       </div>
 
-  {/* 
+      {/* 
       <div className="form-group">
         <label>Brand {brands.length}</label>
         <select
@@ -205,6 +204,7 @@ const ProductCreateForm = ({
       <div className="form-group">
         <label>Description</label>
         <textarea
+          rows="5"
           type="text"
           name="description"
           className="form-control"
@@ -212,7 +212,6 @@ const ProductCreateForm = ({
           onChange={handleChange}
         />
       </div>
-
       <br />
       <button className="btn btn-outline-info btn-lg">Save</button>
     </form>

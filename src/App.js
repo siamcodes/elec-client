@@ -49,6 +49,11 @@ import Policy from './pages/about/Policy';
 import OrderCancel from './pages/about/OrderCancel';
 import Shipping from './pages/about/Shipping';
 
+import ProductContent from './pages/admin/product/ProductContent';
+import ProductDetail from './pages/admin/product/ProductDetail';
+import Profile from './pages/user/Prifile';
+import Contact from './pages/user/Contact';
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -93,12 +98,14 @@ const App = () => {
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
+        <UserRoute exact path="/user/profile" component={Profile} />
+        <UserRoute exact path="/user/contact" component={Contact} />
+
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
         <AdminRoute exact path="/admin/category" component={CategoryCreate} />
         <AdminRoute exact path="/admin/category/:slug" component={CategoryUpdate} />
         <AdminRoute exact path="/admin/sub" component={SubCreate} />
         <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
-
         <AdminRoute exact path="/admin/brand" component={BrandCreate} />
         <AdminRoute exact path="/admin/brand/:slug" component={BrandUpdate} />
         <AdminRoute exact path="/admin/generation" component={GenerationCreate} />
@@ -107,6 +114,9 @@ const App = () => {
         <AdminRoute exact path="/admin/product" component={ProductCreate} />
         <AdminRoute exact path="/admin/products" component={AllProducts} />
         <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
+        <AdminRoute exact path="/admin/product-content/:slug" component={ProductContent} />
+        <AdminRoute exact path="/admin/product-detail/:slug" component={ProductDetail} />
+
         <Route exact path="/product/:slug" component={Product} />
         <Route exact path="/category/:slug" component={CategoryHome} />
         <Route exact path="/sub/:slug" component={SubHome} />

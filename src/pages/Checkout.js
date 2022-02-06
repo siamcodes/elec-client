@@ -34,10 +34,12 @@ const Checkout = ({ history }) => {
             setProducts(res.data.products);
             setTotal(res.data.cartTotal);
         });
-        
+
         getUserAddress(user.token).then((res) => {
             console.log("user address res", JSON.stringify(res.data, null, 4));
-            setAddress(res.data.user.address);
+            if (res.data.user.address != null) {
+                setAddress(res.data.user.address);
+            }
         });
 
     }, []);
@@ -175,7 +177,7 @@ const Checkout = ({ history }) => {
 
     return (
         <div className="container-fluid row">
-            <div className="col-md-6">
+            <div className="col-md-5">
                 <h4>Delivery Address</h4>
                 {showAddress()}
                 <hr />
@@ -185,7 +187,7 @@ const Checkout = ({ history }) => {
                 {discountError && <p className="bg-danger text-white p-2">{discountError}</p>}
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-7">
                 <h4>Order Summary</h4>
                 <hr />
                 <p>Products {products.length}</p>

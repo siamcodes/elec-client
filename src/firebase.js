@@ -10,7 +10,7 @@ const firebaseConfig = {
   storageBucket: "mern-ecommerce-web.appspot.com",
   messagingSenderId: "540737999132",
   appId: "1:540737999132:web:08964181b62e83c4436ad9",
-  measurementId: "G-S1J7RJENGM"
+  measurementId: "G-S1J7RJENGM" 
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -18,3 +18,4 @@ firebase.initializeApp(firebaseConfig);
 // export
 export const auth = firebase.auth();
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+

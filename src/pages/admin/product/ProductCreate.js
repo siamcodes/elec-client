@@ -9,9 +9,6 @@ import { getBrands, getBrandGenerations } from "../../../functions/brand";
 import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-
 const initialState = {
   title: "",
   descriptioin: "",
@@ -24,12 +21,11 @@ const initialState = {
   images: [],
   colors: ["Black", "Brown", "Silver", "White", "Blue", "Red", "Green"],
   color: "",
-  brands: ["Espressif", "Atmel", "Phillips", "Microchip", "Analog Device", "STMicroelectronics", "Parallax", "Cypress", "Texas Intruments", "Motorola", "Zilog", "Rabbit Semiconductor", "Renesas",
-    "Sumsung", "Panasonic", "Sony", "Acer", "Apple", "Aston", "Dell", "Fujifilm", "GoPro", "HP", "JBL", "Lenovo", "LG", "Microsoft", "Sandisk", "WD", "Zotac", "No Brand"],
+  brands: ["No Brand","Espressif", "Atmel", "Phillips", "Microchip", "Analog Device", "STMicroelectronics", "Parallax", "Cypress", "Texas Intruments", "Motorola", "Zilog", "Rabbit Semiconductor", "Renesas",
+    "Sumsung", "Panasonic", "Sony", "Acer", "Apple", "Aston", "Dell", "Fujifilm", "GoPro", "HP", "JBL", "Lenovo", "LG", "Microsoft", "Sandisk", "WD", "Zotac"],
   // brands: [],
   brand: "",
   generations: [],
-
 };
 
 const ProductCreate = () => {
@@ -41,19 +37,6 @@ const ProductCreate = () => {
   const [loading, setLoading] = useState(false);
   const [brands, setBrands] = useState(initialState);  //เพิ่ม
 
-  //----------------------
-  const contentFromLS = () => {
-    if (typeof window === 'undefined') {
-      return false;
-    }
-    if (localStorage.getItem('content')) {
-      return JSON.parse(localStorage.getItem('content'));
-    } else {
-      return false;
-    }
-  };
-  const [content, setContent] = useState(contentFromLS());
-
   // redux
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -61,14 +44,6 @@ const ProductCreate = () => {
     loadCategories();
     loadBrands();
   }, []);
-
-  const handleContent = e => {  //
-    console.log(e);
-    setContent(e);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('content', JSON.stringify(e));
-    }
-  }
 
   const loadCategories = () =>
     getCategories().then((c) => setValues({ ...values, categories: c.data }));
@@ -155,13 +130,7 @@ const ProductCreate = () => {
             handleBrandChange={handleBrandChange}
             generationOptions={generationOptions}
             showGeneration={showGeneration}
-
           />
-
-          <div>
-            <ReactQuill theme="snow" value={content} onChange={handleContent} />
-          </div>
-
         </div>
       </div>
     </div>

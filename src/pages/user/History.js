@@ -10,8 +10,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import Invoice from "../../components/order/Invoice";
 
 const History = () => {
-  const [orders, setOrders] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     loadUserOrders();

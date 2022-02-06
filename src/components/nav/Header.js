@@ -41,6 +41,10 @@ const Header = () => {
         history.push("/login");
     };
 
+    const profile = () => {
+        history.push("/user/profile");
+    }
+
     return (
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
             <Item key="home" icon={<AppstoreOutlined />}>
@@ -60,13 +64,13 @@ const Header = () => {
             </Item>
 
             {!user && (
-                <Item key="register" icon={<UserAddOutlined />} style={{float: 'right'}}>
+                <Item key="register" icon={<UserAddOutlined />} style={{ float: 'right' }}>
                     <Link to="/register">Register</Link>
                 </Item>
             )}
 
             {!user && (
-                <Item key="login" icon={<UserOutlined />} style={{float: 'right'}}>
+                <Item key="login" icon={<UserOutlined />} style={{ float: 'right' }}>
                     <Link to="/login">Login</Link>
                 </Item>
             )}
@@ -75,7 +79,7 @@ const Header = () => {
                 <SubMenu
                     icon={<SettingOutlined />}
                     title={user.email && user.email.split("@")[0]}
-                    style={{float: 'right'}}
+                    style={{ float: 'right' }}
                 >
                     {user && user.role === "subscriber" && (
                         <Item icon={<UnorderedListOutlined />}>
@@ -88,15 +92,16 @@ const Header = () => {
                             <Link to="/admin/dashboard">Dashboard</Link>
                         </Item>
                     )}
+                    <Item icon={<UserOutlined />} onClick={profile}>Profile</Item>
                     <Item icon={<LogoutOutlined />} onClick={logout}>Logout</Item>
                 </SubMenu>
             )}
 
-            <Item key="shop" icon={<ContactsOutlined />} style={{float: 'right'}}>
-                <Link to="/contact">Contact</Link>
+            <Item key="shop" icon={<ContactsOutlined />} style={{ float: 'right' }}>
+                <Link to="/user/contact">Contact</Link>
             </Item>
 
-            <span className="p-1" style={{float: 'right'}}>
+            <span className="p-1" style={{ float: 'right' }}>
                 <Search />
             </span>
         </Menu>
