@@ -33,7 +33,7 @@ app.use('/*', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3008;
 app.listen(port, () => {
     console.log(`App is running on port ${port}`);
 });
