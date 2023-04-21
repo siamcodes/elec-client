@@ -44,7 +44,7 @@ const Footer = () => {
                     </div>
                 </section>
                 <section>
-                    <div className="container text-md-start mt-4">
+                    <div className="container-fluid text-md-start mt-4">
                         <div className="row mt-3">
                             <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-3">
                                 <h6 className="text-uppercase fw-bold mb-3">Description</h6>
@@ -78,8 +78,8 @@ const Footer = () => {
                     </div>
                 </section>
                 <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-                    © 2022 Copyright:
-                    <a className="text-reset fw-bold" href="https://elec.app/">elec.app</a>
+                    © 2023 Copyright : 
+                    <a className="text-reset fw-bold" href="https://mcu.in.th/">https://mcu.in.th</a>
                 </div>
             </footer>
         </>

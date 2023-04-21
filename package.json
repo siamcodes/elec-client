@@ -5,7 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@david.kucsai/react-pdf-table": "^0.3.0",
-    "@react-pdf/renderer": "^2.0.21",
+    "@react-pdf/renderer": "^3.1.9",
     "@stripe/react-stripe-js": "^1.7.0",
     "@stripe/stripe-js": "^1.22.0",
     "@testing-library/jest-dom": "^5.14.1",
@@ -27,12 +27,14 @@
     "react-render-html": "^0.6.0",
     "react-responsive-carousel": "^3.2.20",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1",
+    "react-scripts": "^5.0.1",
     "react-star-ratings": "^2.3.0",
     "react-toastify": "^6.1.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
+    "stream": "^0.0.2",
     "typewriter-effect": "^2.18.0",
+    "util": "^0.12.5",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
